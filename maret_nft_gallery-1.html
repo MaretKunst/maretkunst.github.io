@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maret NFT Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #fff0f5, #f0f8ff);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 30px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+    header p {
+      font-style: italic;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #ddd;
+    }
+    #language-selector {
+      margin-top: 10px;
+    }
+    select {
+      padding: 5px;
+      margin-top: 10px;
+    }
+    #nfts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+      padding: 10px;
+    }
+    .nft {
+      margin: 15px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: white;
+      border-radius: 10px;
+      width: 240px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .nft img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .nft-name {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .nft-price {
+      color: #777;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .nft-link {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: white;
+      background-color: #d63384;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    #about {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-size: 16px;
+      color: #333;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+      padding-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Maret NFT Gallery</h1>
+    <p id="tagline">Unique digital artworks born from memory, passion and imagination</p>
+    <div id="language-selector">
+      <label for="lang">🌍 Language:</label>
+      <select id="lang" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="it">Italiano</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+      </select>
+    </div>
+  </header>
+
+  <div id="nfts">Loading NFTs...</div>
+
+  <div id="about"></div>
+
+  <footer>
+    <span id="footer-text">Follow me on</span> <a href="https://www.instagram.com/maret.kunst" target="_blank">Instagram: @maret.kunst</a>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        tagline: "Unique digital artworks born from memory, passion and imagination",
+        loading: "Loading NFTs...",
+        notForSale: "Not for sale",
+        viewOnOpenSea: "View on OpenSea",
+        footer: "Follow me on",
+        about: "Maret is an Italian artist living in Germany. Her digital creations are born from personal memories, vibrant emotions and a strong imagination. Working also with acrylics, she combines tradition and technology to express her unique artistic voice."
+      },
+      it: {
+        tagline: "Opere digitali uniche nate da memoria, passione e immaginazione",
+        loading: "Caricamento NFT...",
+        notForSale: "Non in vendita",
+        viewOnOpenSea: "Vedi su OpenSea",
+        footer: "Seguimi su",
+        about: "Maret è un'artista italiana che vive in Germania. Le sue creazioni digitali nascono da ricordi personali, emozioni vibranti e una forte immaginazione. Lavora anche con acrilici, fondendo tradizione e tecnologia per esprimere la sua voce artistica unica."
+      },
+      fr: {
+        tagline: "Œuvres numériques uniques nées de la mémoire, de la passion et de l'imagination",
+        loading: "Chargement des NFTs...",
+        notForSale: "Pas à vendre",
+        viewOnOpenSea: "Voir sur OpenSea",
+        footer: "Suivez-moi sur",
+        about: "Maret est une artiste italienne vivant en Allemagne. Ses créations numériques sont issues de souvenirs personnels, d’émotions vives et d’une grande imagination. Elle travaille également avec des peintures acryliques, mêlant tradition et technologie."
+      },
+      de: {
+        tagline: "Einzigartige digitale Kunstwerke aus Erinnerung, Leidenschaft und Fantasie",
+        loading: "NFTs werden geladen...",
+        notForSale: "Nicht zu verkaufen",
+        viewOnOpenSea: "Auf OpenSea ansehen",
+        footer: "Folge mir auf",
+        about: "Maret ist eine italienische Künstlerin, die in Deutschland lebt. Ihre digitalen Werke entstehen aus persönlichen Erinnerungen, lebendigen Emotionen und starker Vorstellungskraft. Sie arbeitet auch mit Acrylfarben und verbindet Tradition mit Technologie."
+      },
+      es: {
+        tagline: "Obras digitales únicas nacidas de la memoria, la pasión y la imaginación",
+        loading: "Cargando NFTs...",
+        notForSale: "No está en venta",
+        viewOnOpenSea: "Ver en OpenSea",
+        footer: "Sígueme en",
+        about: "Maret es una artista italiana que vive en Alemania. Sus creaciones digitales nacen de recuerdos personales, emociones intensas e imaginación viva. También trabaja con acrílicos, combinando tradición y tecnología."
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.getElementById("tagline").textContent = translations[lang].tagline;
+      document.getElementById("footer-text").textContent = translations[lang].footer;
+      document.getElementById("about").textContent = translations[lang].about;
+      loadNFTs(lang);
+    }
+
+    function loadNFTs(lang = "en") {
+      document.getElementById("nfts").textContent = translations[lang].loading;
+      fetch("https://api.opensea.io/api/v2/chain/ethereum/account/0x743882ca3fd4aea36484bd09ac5633b157bfa7d1/nfts")
+        .then(res => res.json())
+        .then(data => {
+          const div = document.getElementById("nfts");
+          div.innerHTML = "";
+          data.nfts.forEach(nft => {
+            const container = document.createElement("div");
+            container.className = "nft";
+
+            const img = document.createElement("img");
+            img.src = nft.image_url || nft.image_preview_url || "";
+
+            const name = document.createElement("div");
+            name.className = "nft-name";
+            name.textContent = nft.name || "Untitled";
+
+            const price = document.createElement("div");
+            price.className = "nft-price";
+            price.textContent = nft.listing && nft.listing.price ? `Price: ${nft.listing.price} ETH` : translations[lang].notForSale;
+
+            const link = document.createElement("a");
+            link.className = "nft-link";
+            link.href = nft.opensea_url || `https://opensea.io/assets/ethereum/${nft.contract_address}/${nft.token_id}`;
+            link.target = "_blank";
+            link.textContent = translations[lang].viewOnOpenSea;
+
+            container.appendChild(img);
+            container.appendChild(name);
+            container.appendChild(price);
+            container.appendChild(link);
+
+            div.appendChild(container);
+          });
+        })
+        .catch(err => {
+          document.getElementById("nfts").textContent = "Error loading NFTs.";
+          console.error(err);
+        });
+    }
+
+    // Load default language on page load
+    changeLanguage("en");
+  </script>
+</body>
+</html>
